@@ -3,7 +3,7 @@ from datetime import date
 
 from nonebot.plugin import on_keyword
 
-from nonebot.adapters.onebot.v11 import Event, MessageSegment
+from nonebot.adapters.onebot.v11 import MessageEvent, MessageSegment
 from nonebot.adapters.onebot.v11.message import Message
 
 
@@ -29,7 +29,7 @@ def luck_simple(num):
 
 today_luck = on_keyword(["今日人品","今日被闪击"], priority=50, block=True)
 @today_luck.handle()
-async def _(event: Event):
+async def _(event: MessageEvent):
     rnd = random.Random()
     at_u = MessageSegment.at(event.user_id)
     rnd.seed(int(date.today().strftime("%y%m%d")) + int(event.get_user_id()))
