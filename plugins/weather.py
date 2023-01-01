@@ -9,7 +9,7 @@ wettr = on_command('天气', aliases={'wttr', 'weather', 'tianqi'})
 
 
 @wettr.handle()
-async def _handle(matcher: Matcher, city: Message = CommandArg()):
+async def weather_handle(matcher: Matcher, city: Message = CommandArg()):
     if city.extract_plain_text() and city.extract_plain_text()[0]!='_':
         matcher.set_arg('city', city)
 
