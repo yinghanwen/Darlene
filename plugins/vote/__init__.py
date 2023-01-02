@@ -91,15 +91,15 @@ async def on_trial(bot: Bot,event: GroupMessageEvent):
         cur = await db.cursor()
 
         to_kick_id = cur.execute(
-            f'''SELECT to_kick_id FROM {gid}'''
+            '''SELECT to_kick_id FROM WHERE gid=?''', (gid,)
         )
 
         yes = cur.execute(
-            f'''SELECT yes_votes FROM {gid}'''
+            '''SELECT yes_votes FROM WHERE gid=?''', (gid,)
         )
 
         no = cur.execute(
-            f'''SELECT no_votes FROM {gid}'''
+            '''SELECT no_votes FROM WHERE gid=?''', (gid,)
         ) 
 
         msg = f"有 {yes} 人投了同意票，{no} 人投了反对票\n"
@@ -113,7 +113,7 @@ async def on_trial(bot: Bot,event: GroupMessageEvent):
             msg += "显然，反对票数大于同意票数，取消审判"
             await apply.finish(msg)
 
-        elif no = yes:
+        elif no == yes:
             msg += "显然，反对票等于同意票数？？？？？取消审判"
             await apply.finish(msg)
 
