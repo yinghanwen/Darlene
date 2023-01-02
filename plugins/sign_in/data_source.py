@@ -13,13 +13,13 @@ async def sign_in(uid, gid):
         pass
 
     if uid not in users:
-        users[uid] = {
+        users[gid][uid] = {
             "xp": 0,
             "coins": 0,
             "state":None,
         }
 
-    state = users[uid]["state"]
+    state = users[gid][uid]["state"]
 
     if state is not None and datetime.now() - timedelta(days=1) < state:
         return "您今天签过到了噢~"
@@ -27,8 +27,8 @@ async def sign_in(uid, gid):
     xp = random.randint(1, 10)
     coins = random.randint(1, 10)
 
-    users[uid]["xp"] += xp
-    users[uid]["coins"] += coins
+    users[gid][uid]["xp"] += xp
+    users[gid][uid]["coins"] += coins
 
     msg = f"您获得了 {xp} 经验值和 {coins} 枚金币！"
     return msg
