@@ -13,3 +13,14 @@ async def _(bot: Bot, event: GroupMessageEvent):
     如果没有参数 则征婚
     有空再写 咕咕咕
     """
+
+
+
+divorce = on_command("divorce", aliases={"离婚","你好，离婚"},priority=50)
+@divorce.handle()
+async def _(bot: Bot, event: GroupMessageEvent):
+    """
+    如果未婚 则退出
+    如果已婚 则通知对方 问他是否同意离婚
+    """
+
