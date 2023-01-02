@@ -35,12 +35,27 @@ async def _(user_id: str = ArgStr('user_id')):
         logger.warning("qq num is not int")
         await send_code.reject(f"{PREFIX} QQ号不是纯数字")
 
-agree = on_command("agree", aliases={"允许","同意"}, permission=SUPERUSER, priority=5, block=True)
-agree.handle()
-async def _(bot: Bot, event: MessageEvent, Args: Message = CommandArg()):
-    pass
+@on_request("friend")
+async def _(bot: Bot, event: FriendRequestEvent, state: T_State):
+    request_user_id = event.user_id
+    request_message = event.comment
+    code = ''.join(random.choices(string.digits, k=6))
+    VERTIFY_CODE[request_user_id] = code
+    await bot.set_friend_add_request(flag=event.flag, approve=False, remark=code)
+    await bot.send_private_msg(user_id=request_user_id, message=f"{PREFIX} 您的验证码是 {code}")
 
-disagree = on_command("disagree", aliases={"禁止","不同意"}, permission=SUPERUSER, priority=5, block=True)
-disagree.handle()
+verify = on_command("verify", aliases={"验证"}, permission=SUPERUSER, priority=4, block=True)
+@verify.handle()
 async def _(bot: Bot, event: MessageEvent, Args: Message = CommandArg()):
-    pass
+    request_user_id = event.user_id
+    request_message = event.message
+    if request_user_id in VERTIFY_CODE:
+        code = VERTIFY_CODE.get(request_user_id)
+        if code in request_message:
+            await bot.set_friend_add_request(flag=event.flag, approve=True)
+            await bot.send_private_msg(user_id=request_user_id, message=f"{PREFIX} 验证成功")
+            del VERTIFY_CODE[request_user_id]
+        else:
+            await bot.send_private_msg(user_id=request_user_id, message=f"{PREFIX} 验证码错误")
+    else:
+        await bot.send_private_msg(user_id=request_user_id, message=f"{PREFIX} 您没有收到验证码或者验证码已过期")
