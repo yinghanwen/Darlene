@@ -22,7 +22,7 @@ async def sign_in(uid, gid):
     state = users[gid][uid]["state"]
 
     if state is not None and datetime.now() - timedelta(days=1) < state:
-        return "您今天签过到了噢~"
+        return "vive la france您今天签过到了噢~"
 
     xp = random.randint(1, 10)
     coins = random.randint(1, 10)
@@ -30,5 +30,9 @@ async def sign_in(uid, gid):
     users[gid][uid]["xp"] += xp
     users[gid][uid]["coins"] += coins
 
-    msg = f"您获得了 {xp} 经验值和 {coins} 枚金币！"
+    s1 = "您坐上了前往波兰的I号坦克！"
+    s2 = "您伞击了法兰西！"
+    s3 = "您研究好了闪电战理论！"
+    msg = random.choice(s1, s2, s3)
+    msg += f"获得了 {xp} 经验值和 {coins} 枚金币！"
     return msg
