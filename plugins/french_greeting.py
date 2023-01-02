@@ -3,7 +3,6 @@ import time
 
 from nonebot.plugin import on_keyword
 from nonebot.adapters.onebot.v11 import MessageEvent, MessageSegment
-from nonebot.adapters.onebot.v11.message import Message
 
 
 LUCK_MESSAGES = [
