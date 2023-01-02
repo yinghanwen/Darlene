@@ -80,12 +80,42 @@ async def applying(event: GroupMessageEvent,to_kick_id):
         await apply.send(f"针对战犯 {MessageSegment.at(to_kick_id)} 的公审已发起！输入 “/投票 同意” 或者 “/投票 不同意” 参与审判！")
     
 
-async def on_trial(bot: Bot,group_id, to_kick_id):
+async def on_trial(bot: Bot,event: GroupMessageEvent):
+    gid = event.group_id
+
     await asyncio.sleep(3 * 60)
-    await apply.send("")
-    """
-    这里我不会写了~~
-    """
+    await apply.send("开始唱票")
+
+    async with aiosqlite.connect("vote.db") as db:
+
+        cur = await db.cursor()
+
+        to_kick_id = cur.execute(
+            f'''SELECT to_kick_id FROM {gid}'''
+        )
+
+        yes = cur.execute(
+            f'''SELECT yes_votes FROM {gid}'''
+        )
+
+        no = cur.execute(
+            f'''SELECT no_votes FROM {gid}'''
+        ) 
+
+        msg = f"有 {yes} 人投了同意票，{no} 人投了反对票\n"
+        
+        if yes > no:
+            msg += "显然，同意大于反对，实施制裁"
+            await apply.finish(msg)
+            bot.set_group_kick(to_kick_id)
+        
+        elif no > yes:
+            msg += "显然，反对票数大于同意票数，取消审判"
+            await apply.finish(msg)
+
+        elif no = yes:
+            msg += "显然，反对票等于同意票数？？？？？取消审判"
+            await apply.finish(msg)
 
 
 vote = on_command("vote", aliases={"投票"},permission=GROUP)
