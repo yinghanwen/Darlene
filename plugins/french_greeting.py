@@ -1,37 +1,32 @@
 import random
-from datetime import date
+import time
 
 from nonebot.plugin import on_keyword
-
 from nonebot.adapters.onebot.v11 import MessageEvent, MessageSegment
 from nonebot.adapters.onebot.v11.message import Message
 
 
-def luck_simple(num):
-    if num < 18:
-        return "不会被闪击"
+LUCK_MESSAGES = [
+    ("不会被闪击", range(1, 18)),
+    ("小概率会被闪击", range(18, 53)),
+    ("听到德军坦克的声音了！", range(53, 58)),
+    ("准备好防御工事！", range(58, 62)),
+    ("准备举起白旗！", range(62, 65)),
+    ("vive la france!", range(65, 71))
+]
 
-    elif num < 53:
-        return "小概率会被闪击"
-    
-    elif num < 58:
-        return  "听到德军坦克的声音了！"
-    
-    elif num < 62:
-        return "准备好防御工事！"
-
-    elif num < 65:
-        return "准备举起白旗！"
-    
-    elif num < 71:
-        return "vive la france!"
-
+def get_luck_message(luck_num):
+    for message, luck_range in LUCK_MESSAGES:
+        if luck_num in luck_range:
+            return message
 
 today_luck = on_keyword(["今日人品","今日被闪击"], priority=50, block=True)
+
 @today_luck.handle()
 async def _(event: MessageEvent):
     rnd = random.Random()
     at_u = MessageSegment.at(event.user_id)
-    rnd.seed(int(date.today().strftime("%y%m%d")) + int(event.get_user_id()))
-    lucknum = rnd.randint(1,100)
-    await today_luck.finish(Message(f'{at_u}您今日的二战幸运指数是{lucknum}/100（越低越好），为"{luck_simple(lucknum)}"'))
+    rnd.seed(int(time.time()) + int(event.get_user_id()))
+    luck_num = rnd.randint(1, 100)
+    luck_message = get_luck_message(luck_num)
+    await today_luck.finish(f"{at_u} {luck_message} 您今日的二战幸运指数是 {luck_num} / 100 (越低越好）")
