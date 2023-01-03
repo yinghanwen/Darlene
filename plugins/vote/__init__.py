@@ -1,6 +1,3 @@
-import aiosqlite
-
-
 from nonebot.matcher import Matcher
 from nonebot.params import Arg, CommandArg, ArgPlainText
 from nonebot.permission import GROUP

@@ -2,12 +2,10 @@ import random
 import string
 
 from nonebot.log import logger
-from nonebot.matcher import Matcher
 
 from nonebot.params import CommandArg, ArgStr
 from nonebot.permission import SUPERUSER
 from nonebot.plugin import on_command, on_request
-from nonebot.rule import to_me
 from nonebot.typing import T_State
 
 from nonebot.adapters.onebot.v11 import Bot
@@ -36,7 +34,7 @@ async def _(user_id: str = ArgStr('user_id')):
         await send_code.reject(f"{PREFIX} QQ号不是纯数字")
 
 @on_request("friend")
-async def _(bot: Bot, event: FriendRequestEvent, state: T_State):
+async def _(bot: Bot, event: FriendRequestEvent):
     request_user_id = event.user_id
     request_message = event.comment
     code = ''.join(random.choices(string.digits, k=6))

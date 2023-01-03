@@ -1,8 +1,7 @@
 import aiosqlite
 import asyncio
 from nonebot.adapters.onebot.v11 import Bot, GroupMessageEvent, MessageSegment
-
-from . import handle_vote
+from __init__ import handle_vote
 
 async def on_trial(bot: Bot,event: GroupMessageEvent):
     gid = event.group_id
