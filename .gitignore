@@ -139,3 +139,7 @@ dmypy.json
 .pytype/
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+
+# nonenot_plugin_gocqhttp
+
+accounts/
