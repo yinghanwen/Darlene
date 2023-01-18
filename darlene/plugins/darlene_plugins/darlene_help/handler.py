@@ -20,7 +20,7 @@ async def handle_first_receive(event: Event, matcher: Matcher, args: Message = C
     if args:
         matcher.set_arg("content", args)
     else:
-        await matcher.finish(Message(at + f'''欢迎使用Nonebot2 Help Menu
+        await matcher.finish(Message(at + f'''欢迎使用 Darlene 帮助菜单！
 支持使用的前缀：{" ".join(list(nonebot.get_driver().config.command_start))}
 {default_start}help  # 获取本插件帮助
 {default_start}help list  # 展示已加载插件列表

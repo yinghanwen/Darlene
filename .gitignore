@@ -143,3 +143,6 @@ dmypy.json
 # nonenot_plugin_gocqhttp
 
 accounts/
+
+# vscode
+.vscode/
