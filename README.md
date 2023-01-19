@@ -35,6 +35,19 @@ nb run
 python bot.py
 ```
 
+## 问题反馈
+
+请您在确保是 Darlene 所导致的 Bug 后在本项目的 issue 中提问。
+
+请不要给我提 Qssue, Bssue, Dssue 等，除 Github Issue 和 邮箱提问以外一律不理睬。
+
+
+## 贡献
+
+若您发现了一个 bug 并有能力修改的话，请直接提交 Pull Request
+
+如果需要大改动的话，可以选择和我 email 商榷。
+
 ## 协议
 
 本项目采用 ```MIT``` 协议
