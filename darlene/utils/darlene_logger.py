@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 from loguru import logger
 from nonebot.log import logger_id   
 
@@ -11,7 +11,6 @@ LOG_PATH.mkdir(exist_ok=True, parents=True)
 
 
 log_format: str = (
-    "<blue>{'Darlene'}</blue>"
     "<g>{time:MM-DD HH:mm:ss}</g> "
     "[<lvl>{level}</lvl>] "
     "<c><u>{name}</u></c> | "
@@ -41,6 +40,7 @@ logger.add(
     level='INFO',
     rotation='00:00',
     format=log_format,
+    retention=timedelta(days=30)
 )
 
 logger.add(
@@ -48,6 +48,7 @@ logger.add(
     level='DEBUG',
     rotation='00:00',
     format=log_format,
+    retention=timedelta(days=30)
 )
 
 logger.add(
@@ -55,6 +56,7 @@ logger.add(
     level='WARNING',
     rotation='00:00',
     format=log_format,
+    retention=timedelta(days=30)
 )
 
 logger.add(
@@ -62,5 +64,6 @@ logger.add(
     level='ERROR',
     rotation='00:00',
     format=log_format,
+    retention=timedelta(days=30)
 )
 
