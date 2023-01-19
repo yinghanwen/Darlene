@@ -1,4 +1,3 @@
-"""
 
 from nonebot.matcher import Matcher
 from nonebot.params import Arg, CommandArg, ArgPlainText
@@ -25,7 +24,6 @@ async def apply_first_recieve(event:GroupMessageEvent, matcher: Matcher,to_kick_
 async def handle_to_kick_id(event: GroupMessageEvent,to_kick_id: Message = Arg(), id: str = ArgPlainText("to_kick_id")):
     if to_kick_id not in event.group_id:
         await apply.reject("这位战犯不在群内")
-        return
 
     await applying(to_kick_id)
 
@@ -52,8 +50,3 @@ async def handle_vote(attitude: Message =  Arg(), opinion: str = ArgPlainText("a
         else:
             await vote.reject("您的输入内容错误！（同意/不同意）")
             return
-
-
-
-
-"""

@@ -15,7 +15,12 @@ helper.__help_info__ = f'''{default_start}help  # 获取本插件帮助
 
 
 @helper.handle()
-async def handle_first_receive(event: Event, matcher: Matcher, args: Message = CommandArg()):
+async def handle_first_receive(
+    event: Event,
+    matcher: Matcher,
+    args: Message = CommandArg()):
+
+    
     at = MessageSegment.at(event.get_user_id())
     if args:
         matcher.set_arg("content", args)

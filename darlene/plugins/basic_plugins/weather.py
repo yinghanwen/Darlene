@@ -18,7 +18,7 @@ async def weather_handle(matcher: Matcher, city: Message = CommandArg()):
 @wettr.got('city', prompt='你想查询哪个城市的天气呢？')
 async def _(city: str = ArgPlainText('city')):
     if city[0]!='_':
-        await wettr.send('少女举白旗中...', at_sender=True)
+        await wettr.send('少女观测中...', at_sender=True)
         await wettr.send(MessageSegment.image(file=f'http://zh.wttr.in/{escape(city)}.png', cache=False), at_sender=True)
     else:
         await wettr.reject_arg('city',prompt='不能使用“_”作为查询前缀！请重新输入！')
