@@ -3,10 +3,11 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from loguru import logger
 from nonebot.log import logger_id   
+from darlene.conf.basic import LOG_PATH
 
 logger.remove(logger_id)
 
-LOG_PATH = Path(".") / "cache" / "logs"
+
 LOG_PATH.mkdir(exist_ok=True, parents=True)
 
 
