@@ -15,6 +15,4 @@ __plugin_meta__ = PluginMetadata(
 
 from .poke import *
 
-from .pohai import *
-
-from greetings import *
+from .greetings import *

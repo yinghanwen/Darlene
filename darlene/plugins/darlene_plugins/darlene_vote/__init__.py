@@ -1,4 +1,4 @@
-
+"""
 from nonebot.matcher import Matcher
 from nonebot.params import Arg, CommandArg, ArgPlainText
 from nonebot.plugin import on_command
@@ -50,3 +50,4 @@ async def handle_vote(attitude: Message =  Arg(), opinion: str = ArgPlainText("a
         else:
             await vote.reject("您的输入内容错误！（同意/不同意）")
             return
+"""
